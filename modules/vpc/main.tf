@@ -97,7 +97,7 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    Name = "${var.name}-public-rt"
+    Name = "${var.name}-private-rt"
   }
 }
 
