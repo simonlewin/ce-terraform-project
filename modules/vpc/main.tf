@@ -50,6 +50,10 @@ resource "aws_route_table" "public" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.igw.id
   }
+
+  tags = {
+    Name = "${var.name}-public-rt"
+  }
 }
 
 # Association between route table and public subnets
@@ -58,4 +62,27 @@ resource "aws_route_table_association" "public" {
 
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public.id
+}
+
+# Elastic IP
+resource "aws_eip" "eip" {
+  domain = "vpc"
+
+  depends_on = [aws_internet_gateway.igw]
+
+  tags = {
+    Name = "${var.name}-eip"
+  }
+}
+
+# NAT Gateway
+resource "aws_nat_gateway" "natgw" {
+  allocation_id = aws_eip.eip.id
+  subnet_id     = aws_subnet.private_subnets[0].id
+
+  tags = {
+    Name = "${var.name}-natgw"
+  }
+
+  depends_on = [aws_internet_gateway.igw]
 }
