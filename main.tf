@@ -1,3 +1,4 @@
+# VPC
 module "vpc" {
   source = "./modules/vpc"
 
@@ -7,4 +8,12 @@ module "vpc" {
   azs             = var.azs
   private_subnets = var.private_subnets
   public_subnets  = var.public_subnets
+}
+
+# Security
+module "security" {
+  source = "./modules/security"
+
+  vpc_id = module.vpc.vpc_id
+  name   = var.name
 }
