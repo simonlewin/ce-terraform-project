@@ -77,3 +77,34 @@ resource "aws_vpc_security_group_egress_rule" "allow_https" {
     Name = "${var.name}-egress-rule"
   }
 }
+
+# Security group to allow SSH
+resource "aws_security_group" "allow_ssh" {
+  name        = "allow_ssh"
+  description = "Allow SSH inbound traffic from only my ip address"
+
+  vpc_id = var.vpc_id
+
+  tags = {
+    Name = "${var.name}-sg"
+  }
+}
+
+# HTTP data resource to get my IP address
+data "http" "my_ip_address" {
+  url = "http://ipv4.icanhazip.com"
+}
+
+# VPC security group ingress rule
+resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
+  security_group_id = aws_security_group.allow_ssh.id
+
+  cidr_ipv4   = "${chomp(data.http.my_ip_address.response_body)}/32"
+  from_port   = 22
+  ip_protocol = "tcp"
+  to_port     = 22
+
+  tags = {
+    Name = "${var.name}-ingress-rule"
+  }
+}
