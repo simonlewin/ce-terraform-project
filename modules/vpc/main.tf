@@ -42,7 +42,7 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-# Routing Table
+# Public Routing Table
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.vpc.id
 
@@ -56,7 +56,7 @@ resource "aws_route_table" "public" {
   }
 }
 
-# Association between route table and public subnets
+# Association between public route table and public subnets
 resource "aws_route_table_association" "public" {
   count = length(var.public_subnets)
 
@@ -78,11 +78,33 @@ resource "aws_eip" "eip" {
 # NAT Gateway
 resource "aws_nat_gateway" "natgw" {
   allocation_id = aws_eip.eip.id
-  subnet_id     = aws_subnet.private_subnets[0].id
+  subnet_id     = aws_subnet.public_subnets[0].id
 
   tags = {
     Name = "${var.name}-natgw"
   }
 
   depends_on = [aws_internet_gateway.igw]
+}
+
+# Private Routing Table
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.natgw.id
+  }
+
+  tags = {
+    Name = "${var.name}-public-rt"
+  }
+}
+
+# Association between private route table and private subnets
+resource "aws_route_table_association" "private" {
+  count = length(var.private_subnets)
+
+  subnet_id      = element(aws_subnet.private_subnets[*].id, count.index)
+  route_table_id = aws_route_table.private.id
 }
