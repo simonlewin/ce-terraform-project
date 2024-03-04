@@ -32,3 +32,12 @@ resource "aws_subnet" "private_subnets" {
     Name = format("${var.name}-private-%s", element(var.azs, count.index))
   }
 }
+
+# Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name = "${var.name}-igw"
+  }
+}
