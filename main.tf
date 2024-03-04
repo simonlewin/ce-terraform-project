@@ -17,3 +17,14 @@ module "security" {
   vpc_id = module.vpc.vpc_id
   name   = var.name
 }
+
+# DynamoDB
+module "dynamodb" {
+  source = "./modules/dynamo"
+
+  name = var.name
+
+  db_tables = var.db_tables
+  hash_key  = var.hash_key
+  type      = var.type
+}

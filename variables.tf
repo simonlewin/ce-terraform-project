@@ -30,3 +30,19 @@ variable "private_subnets" {
   type        = list(string)
   description = "A list of the CIDR blocks for the private subnets"
 }
+
+# DynamoDB
+variable "db_tables" {
+  type        = list(string)
+  description = "A list of the DynamoDB table names"
+}
+
+variable "hash_key" {
+  type        = string
+  description = "The attribute to use as the hash (partition) key"
+}
+
+variable "type" {
+  type        = string
+  description = "The attribute type"
+}
