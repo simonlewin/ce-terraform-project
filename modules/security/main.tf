@@ -3,6 +3,10 @@ resource "aws_security_group" "allow_http" {
   description = "Allow HTTP inbound and outbound traffic"
 
   vpc_id = var.vpc_id
+
+  tags = {
+    Name = "${var.name}-sg"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_http" {
@@ -12,6 +16,10 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http" {
   from_port   = 80
   ip_protocol = "tcp"
   to_port     = 80
+
+  tags = {
+    Name = "${var.name}-ingress-rule"
+  }
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_http" {
@@ -21,4 +29,8 @@ resource "aws_vpc_security_group_egress_rule" "allow_http" {
   from_port   = 80
   ip_protocol = "tcp"
   to_port     = 80
+
+  tags = {
+    Name = "${var.name}-egress-rule"
+  }
 }
