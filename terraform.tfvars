@@ -14,3 +14,8 @@ public_subnets  = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24"]
 db_tables = ["lighting", "heating"]
 type      = "N"
 hash_key  = "id"
+
+# Servers
+ami = "ami-0d18e50ca22537278"
+instance_type = "t2.micro"
+key_name     = "nc-photo-display-app"

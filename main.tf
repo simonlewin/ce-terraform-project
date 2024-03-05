@@ -28,3 +28,17 @@ module "dynamodb" {
   hash_key  = var.hash_key
   type      = var.type
 }
+
+# Servers
+module "servers" {
+  source = "./modules/servers"
+
+  name = var.name
+
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  vpc_security_group_ids = module.security.security_group_ids
+  key_name               = var.key_name
+  public_subnet_ids      = module.vpc.public_subnet_ids
+  private_subnet_ids     = module.vpc.private_subnet_ids
+}
