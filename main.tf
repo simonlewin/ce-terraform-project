@@ -35,10 +35,12 @@ module "servers" {
 
   name = var.name
 
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  vpc_security_group_ids = module.security.security_group_ids
-  key_name               = var.key_name
-  public_subnet_ids      = module.vpc.public_subnet_ids
-  private_subnet_ids     = module.vpc.private_subnet_ids
+  ami           = var.ami
+  instance_type = var.instance_type
+  key_name      = var.key_name
+
+  private_security_group_ids = module.security.private_security_group_ids
+  public_security_group_ids  = module.security.public_security_group_ids
+  private_subnet_ids         = module.vpc.private_subnet_ids
+  public_subnet_ids          = module.vpc.public_subnet_ids
 }

@@ -14,9 +14,14 @@ variable "instance_type" {
   description = "Instance type to use for the instance"
 }
 
-variable "vpc_security_group_ids" {
+variable "public_security_group_ids" {
   type        = list(string)
-  description = "List of security group IDs to associate with."
+  description = "List of public security group IDs to associate with."
+}
+
+variable "private_security_group_ids" {
+  type        = list(string)
+  description = "List of private security group IDs to associate with."
 }
 
 variable "key_name" {

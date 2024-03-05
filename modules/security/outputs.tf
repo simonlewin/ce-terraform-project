@@ -1,4 +1,9 @@
-output "security_group_ids" {
-  value       = [aws_security_group.allow_http.id, aws_security_group.allow_https.id, aws_security_group.allow_ssh.id]
-  description = "IDs of the security groups"
+output "public_security_group_ids" {
+  value       = [aws_security_group.allow_http.id, aws_security_group.allow_https.id, aws_security_group.allow_ssh.id, aws_security_group.allow_local.id]
+  description = "IDs of the public security groups"
+}
+
+output "private_security_group_ids" {
+  value       = [aws_security_group.allow_http.id, aws_security_group.allow_https.id, aws_security_group.allow_local.id]
+  description = "IDs of the private security groups"
 }
