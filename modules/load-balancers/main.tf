@@ -7,6 +7,11 @@ resource "aws_lb_target_group" "public_lb_tg" {
   protocol = var.target_protocol
   vpc_id   = var.vpc_id
 
+  health_check {
+    path = "/api/${var.tg_names[count.index]}/health"
+    port = var.target_port
+  }
+
   tags = {
     Name = "${var.name}-public-lb-tg-${var.tg_names[count.index]}"
   }
