@@ -1,16 +1,6 @@
-output "lighting_id" {
-  value       = aws_instance.lighting.id
-  description = "ID of the instance"
-}
-
-output "heating_id" {
-  value       = aws_instance.heating.id
-  description = "ID of the instance"
-}
-
-output "status_id" {
-  value       = aws_instance.status.id
-  description = "ID of the instance"
+output "service_ids" {
+  value       = [aws_instance.lighting.id, aws_instance.heating.id, aws_instance.status.id]
+  description = "A list of IDs of the instances"
 }
 
 output "auth_id" {

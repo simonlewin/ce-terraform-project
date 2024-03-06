@@ -62,3 +62,39 @@ variable "key_name" {
   type        = string
   description = "Key name of the Key Pair to use for the instance"
 }
+
+variable "GITHUB_TOKEN" {
+  type        = string
+  description = "GitHub Access Token"
+}
+
+variable "ACCESS_KEY" {
+  type        = string
+  description = "DynamoDB Access Key"
+}
+
+variable "SECRET_ACCESS_KEY" {
+  type        = string
+  description = "DynamoDB Secret Access Key"
+}
+
+# Load Balancers
+variable "services" {
+  type        = list(string)
+  description = "A list of the services"
+}
+
+variable "target_port" {
+  type        = number
+  description = "Port on which targets receive traffic"
+}
+
+variable "target_protocol" {
+  type        = string
+  description = "Protocol to use for routing traffic to the targets"
+}
+
+variable "port" {
+  type        = string
+  description = "Port on which the load balancer is listening"
+}
