@@ -49,6 +49,7 @@ module "servers" {
   SECRET_ACCESS_KEY = var.SECRET_ACCESS_KEY
 }
 
+# Load Balancers
 module "load_balancers" {
   source = "./modules/load-balancers"
 
