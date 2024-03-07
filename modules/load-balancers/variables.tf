@@ -19,7 +19,7 @@ variable "vpc_id" {
   description = "Identifier of the VPC in which to create the target group"
 }
 
-# Register instances with ALB target group
+# Register instances with public ALB target groups
 variable "target_ids" {
   type        = list(string)
   description = "A list of IDs of the targets"
@@ -45,4 +45,27 @@ variable "name" {
 variable "port" {
   type        = string
   description = "Port on which the load balancer is listening"
+}
+
+# Private Load Balancer Target Groups
+variable "int_tg_names" {
+  type        = list(string)
+  description = "A list of names of the target groups"
+}
+
+# Register instances with private ALB target groups
+variable "int_target_ids" {
+  type        = list(string)
+  description = "A list of IDs of the targets"
+}
+
+# Private Load Balancer
+variable "private_security_group_ids" {
+  type        = list(string)
+  description = "A list of security group IDs to assign to the LB"
+}
+
+variable "private_subnet_ids" {
+  type        = list(string)
+  description = "A list of subnet IDs to attach to the LB"
 }

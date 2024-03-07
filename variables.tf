@@ -98,3 +98,8 @@ variable "port" {
   type        = string
   description = "Port on which the load balancer is listening"
 }
+
+variable "int_services" {
+  type        = list(string)
+  description = "A list of the internal services"
+}

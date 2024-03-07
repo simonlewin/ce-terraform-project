@@ -25,3 +25,4 @@ services        = ["lights", "heating", "status"]
 target_port     = 3000
 target_protocol = "HTTP"
 port            = "80"
+int_services    = ["lights", "heating", "auth"]

@@ -65,4 +65,11 @@ module "load_balancers" {
   name                      = var.name
 
   port = var.port
+
+  int_tg_names = var.int_services
+
+  int_target_ids = module.servers.int_service_ids
+
+  private_security_group_ids = module.security.private_security_group_ids
+  private_subnet_ids         = module.vpc.private_subnet_ids
 }
