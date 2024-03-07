@@ -29,6 +29,19 @@ resource "aws_instance" "heating" {
   }
 }
 
+resource "aws_instance" "auth" {
+
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  vpc_security_group_ids = var.private_security_group_ids
+  key_name               = var.key_name
+  subnet_id              = var.private_subnet_ids[0]
+
+  tags = {
+    Name = "${var.name}-auth"
+  }
+}
+
 resource "aws_instance" "status" {
 
   ami                    = var.ami
@@ -41,18 +54,5 @@ resource "aws_instance" "status" {
 
   tags = {
     Name = "${var.name}-status"
-  }
-}
-
-resource "aws_instance" "auth" {
-
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  vpc_security_group_ids = var.private_security_group_ids
-  key_name               = var.key_name
-  subnet_id              = var.private_subnet_ids[0]
-
-  tags = {
-    Name = "${var.name}-auth"
   }
 }

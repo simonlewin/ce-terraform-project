@@ -43,4 +43,33 @@ module "servers" {
   public_security_group_ids  = module.security.public_security_group_ids
   private_subnet_ids         = module.vpc.private_subnet_ids
   public_subnet_ids          = module.vpc.public_subnet_ids
+
+  GITHUB_TOKEN      = var.GITHUB_TOKEN
+  ACCESS_KEY        = var.ACCESS_KEY
+  SECRET_ACCESS_KEY = var.SECRET_ACCESS_KEY
+}
+
+# Load Balancers
+module "load_balancers" {
+  source = "./modules/load-balancers"
+
+  tg_names        = var.services
+  target_port     = var.target_port
+  target_protocol = var.target_protocol
+  vpc_id          = module.vpc.vpc_id
+
+  target_ids = module.servers.service_ids
+
+  public_security_group_ids = module.security.public_security_group_ids
+  public_subnet_ids         = module.vpc.public_subnet_ids
+  name                      = var.name
+
+  port = var.port
+
+  int_tg_names = var.int_services
+
+  int_target_ids = module.servers.int_service_ids
+
+  private_security_group_ids = module.security.private_security_group_ids
+  private_subnet_ids         = module.vpc.private_subnet_ids
 }

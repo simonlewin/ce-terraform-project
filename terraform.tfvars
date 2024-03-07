@@ -16,6 +16,13 @@ type      = "N"
 hash_key  = "id"
 
 # Servers
-ami = "ami-0d18e50ca22537278"
+ami           = "ami-0d18e50ca22537278"
 instance_type = "t2.micro"
-key_name     = "nc-photo-display-app"
+key_name      = "nc-photo-display-app"
+
+# Load Balancers
+services        = ["lights", "heating", "status"]
+target_port     = 3000
+target_protocol = "HTTP"
+port            = "80"
+int_services    = ["lights", "heating", "auth"]
