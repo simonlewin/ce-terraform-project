@@ -14,8 +14,7 @@ resource "aws_instance" "lighting" {
   }
 
   user_data = <<-EOT
-                  !/bin/bash
-                  sudo -u ubuntu -i <<'EOF'
+                  #!/bin/bash
                   cd /home/ubuntu
                   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
                   . ~/.nvm/nvm.sh 
@@ -25,7 +24,6 @@ resource "aws_instance" "lighting" {
                   echo -e "ACCESS_KEY=${var.ACCESS_KEY}\nSECRET_ACCESS_KEY=${var.SECRET_ACCESS_KEY}\nTABLE_NAME=lighting" > .env.local
                   npm install
                   npm install pm2@latest -g
-                  EOF
                 EOT
 }
 
@@ -44,8 +42,7 @@ resource "aws_instance" "heating" {
   }
 
   user_data = <<-EOT
-                  !/bin/bash
-                  sudo -u ubuntu -i <<'EOF'
+                  #!/bin/bash
                   cd /home/ubuntu
                   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
                   . ~/.nvm/nvm.sh 
@@ -55,7 +52,6 @@ resource "aws_instance" "heating" {
                   echo -e "ACCESS_KEY=${var.ACCESS_KEY}\nSECRET_ACCESS_KEY=${var.SECRET_ACCESS_KEY}\nTABLE_NAME=heating" > .env.local
                   npm install
                   npm install pm2@latest -g
-                  EOF
                 EOT
 }
 
@@ -72,8 +68,7 @@ resource "aws_instance" "auth" {
   }
 
   user_data = <<-EOT
-                  !/bin/bash
-                  sudo -u ubuntu -i <<'EOF'
+                  #!/bin/bash
                   cd /home/ubuntu
                   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
                   . ~/.nvm/nvm.sh 
@@ -82,7 +77,6 @@ resource "aws_instance" "auth" {
                   cd ce-smart-home-auth
                   npm install
                   npm install pm2@latest -g
-                  EOF
                 EOT
 }
 
@@ -101,17 +95,15 @@ resource "aws_instance" "status" {
   }
 
   user_data = <<-EOT
-                  !/bin/bash
-                  sudo -u ubuntu -i <<'EOF'
+                  #!/bin/bash
                   cd /home/ubuntu
                   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
                   . ~/.nvm/nvm.sh 
                   nvm install --lts
                   git clone https://${var.GITHUB_TOKEN}@github.com/northcoders/ce-project-status.git
                   cd ce-project-status
-                  echo -e "LIGHTS_SERVICE=${aws_instance.lighting.private_ip}\nHEATING_SERVICE=${aws_instance.heating.private_ip}\nAUTH_SERVICE=${aws_instance.auth.private_ip}" > .env.local
+                  echo -e "LIGHTS_SERVICE=http://${aws_instance.lighting.private_ip}:3000\nHEATING_SERVICE=http://${aws_instance.heating.private_ip}:3000\nAUTH_SERVICE=http://${aws_instance.auth.private_ip}:3000" > .env.local
                   npm install
                   npm install pm2@latest -g
-                  EOF
                 EOT
 }
