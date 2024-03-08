@@ -15,8 +15,12 @@ resource "aws_autoscaling_group" "autoscaling" {
   }
 
   tag {
-    key                 = "name"
-    value               = "${var.name}-${var.autoscaling_groups[count.index]}-asg"
+    key                 = "Name"
+    value               = "${var.name}-${var.autoscaling_groups[count.index]}"
     propagate_at_launch = true
+  }
+
+  lifecycle {
+    ignore_changes = [desired_capacity]
   }
 }
