@@ -69,6 +69,11 @@ variable "target_groups" {
   description = "A list of target groups for use with Load Balancer"
 }
 
+variable "int_target_groups" {
+  type        = list(string)
+  description = "A list of target groups for use with internal Load Balancer"
+}
+
 variable "target_port" {
   type        = number
   description = "Port on which targets receive traffic"
@@ -84,32 +89,27 @@ variable "port" {
   description = "Port on which the load balancer is listening"
 }
 
-# # Launch Templates
-# variable "image_ids" {
-#   type = list(object({
-#     name   = string
-#     ami_id = string
-#   }))
-#   description = "A list of the AMIs from which to launch the instances"
-# }
+# Launch Templates
+variable "image_ids" {
+  type = list(object({
+    name   = string
+    ami_id = string
+  }))
+  description = "A list of the AMIs from which to launch the instances"
+}
 
-# # Auto Scaling
-# variable "autoscaling_groups" {
-#   type        = list(string)
-#   description = "A list of the auto scaling groups"
-# }
+# Auto Scaling Groups
+variable "desired_capacity" {
+  type        = number
+  description = "Number of Amazon EC2 instances that should be running in the group"
+}
 
-# variable "desired_capacity" {
-#   type        = number
-#   description = "Number of Amazon EC2 instances that should be running in the group"
-# }
+variable "max_size" {
+  type        = number
+  description = "Maximum size of the Auto Scaling Group"
+}
 
-# variable "max_size" {
-#   type        = number
-#   description = "Maximum size of the Auto Scaling Group"
-# }
-
-# variable "min_size" {
-#   type        = number
-#   description = "Minimum size of the Auto Scaling Group"
-# }
+variable "min_size" {
+  type        = number
+  description = "Minimum size of the Auto Scaling Group"
+}
