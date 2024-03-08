@@ -21,8 +21,33 @@ instance_type = "t2.micro"
 key_name      = "nc-photo-display-app"
 
 # Load Balancers
-services        = ["lights", "heating", "status"]
-target_port     = 3000
-target_protocol = "HTTP"
-port            = "80"
-int_services    = ["lights", "heating", "auth"]
+target_groups     = ["lights", "heating", "status"]
+int_target_groups = ["lights", "heating", "status", "auth"]
+target_port       = 3000
+target_protocol   = "HTTP"
+port              = "80"
+
+# Launch Templates
+image_ids = [
+  {
+    name   = "lighting"
+    ami_id = "ami-0fe352da0386aa5e4"
+  },
+  {
+    name   = "heating"
+    ami_id = "ami-07801dd25f586f23a"
+  },
+  {
+    name   = "status"
+    ami_id = "ami-056aacec5540a9b95"
+  },
+  {
+    name   = "auth"
+    ami_id = "ami-084bc5d7d555dc6d9"
+  }
+]
+
+# Auto Scaling Groups
+desired_capacity   = 2
+max_size           = 4
+min_size           = 1

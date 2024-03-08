@@ -1,5 +1,5 @@
 # Public Load Balancer Target Groups
-variable "tg_names" {
+variable "target_groups" {
   type        = list(string)
   description = "A list of names of the target groups"
 }
@@ -17,12 +17,6 @@ variable "target_protocol" {
 variable "vpc_id" {
   type        = string
   description = "Identifier of the VPC in which to create the target group"
-}
-
-# Register instances with public ALB target groups
-variable "target_ids" {
-  type        = list(string)
-  description = "A list of IDs of the targets"
 }
 
 # Public Load Balancer
@@ -47,16 +41,10 @@ variable "port" {
   description = "Port on which the load balancer is listening"
 }
 
-# Private Load Balancer Target Groups
-variable "int_tg_names" {
+# Internal Load Balancer Target Groups
+variable "int_target_groups" {
   type        = list(string)
-  description = "A list of names of the target groups"
-}
-
-# Register instances with private ALB target groups
-variable "int_target_ids" {
-  type        = list(string)
-  description = "A list of IDs of the targets"
+  description = "A list of names of the internal target groups"
 }
 
 # Private Load Balancer

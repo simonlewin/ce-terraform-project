@@ -38,18 +38,3 @@ variable "private_subnet_ids" {
   type        = list(string)
   description = "(Private) VPC Subnet IDs to launch in"
 }
-
-variable "GITHUB_TOKEN" {
-  type        = string
-  description = "GitHub Access Token"
-}
-
-variable "ACCESS_KEY" {
-  type        = string
-  description = "DynamoDB Access Key"
-}
-
-variable "SECRET_ACCESS_KEY" {
-  type        = string
-  description = "DynamoDB Secret Access Key"
-}
