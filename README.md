@@ -10,7 +10,7 @@
 
 ## Overview
 
-This repository contains the Terraform HCL code for the infrastructure used in Week 9 project of the [Northcoders](https://northcoders.com/) Cloud Engineering Bootcamp.
+This repository contains the Terraform HCL code for the infrastructure used in Week 9 project of the [Northcoders](https://northcoders.com){:target="_blank"} Cloud Engineering Bootcamp.
 
 This project involved building a fault tolerant scalable infrastructure on Amazon Web Services (AWS) for the back-end services of a smart home automation application. The infrastructure utilizes various AWS services including:
 
